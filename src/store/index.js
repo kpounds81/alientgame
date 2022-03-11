@@ -47,6 +47,12 @@ export default createStore({
   getters: {
   },
   mutations: {
+    pickCharacter(state, character) { 
+      state.character = character
+    },
+    updateUiState(state, uiState) {
+      state.uiState = uiState
+    }
   },
   actions: {
   },
