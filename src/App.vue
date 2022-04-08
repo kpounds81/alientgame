@@ -139,7 +139,7 @@ export default {
       this.$store.commit("updateUiState", "characterChosen");
     },
     pickQuestion(character) {
-      console.log(character);
+      this.$store.commit("pickQuestion", character);
     },
   },
 };
