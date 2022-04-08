@@ -51,6 +51,9 @@ export default createStore({
     pickCharacter(state, character) {
       state.character = character;
     },
+    updateScore(state, amount) {
+      state.score = amount;
+    },
     updateUiState(state, uiState) {
       state.uiState = uiState;
     },
@@ -64,6 +67,11 @@ export default createStore({
           ? (state.uiState = "won")
           : (state.uiState = "lost");
       }
+    },
+    restartGame(state) {
+      state.uiState = "start";
+      state.score = 0;
+      state.questionIndex = 0;
     },
   },
 });

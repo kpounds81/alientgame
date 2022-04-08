@@ -15,12 +15,12 @@
           type="radio"
         />
         <label :for="option">{{ option }}</label>
+        <br />
       </p>
-
       <button @click="pickCharacter">Pick your character!</button>
     </GamestateStart>
 
-    <section v-else>
+    <section v-else-if="uiState === 'characterChosen'">
       <svg viewBox="0 -180 1628 1180" class="main">
         <defs>
           <clipPath id="bottom-clip">
@@ -46,7 +46,8 @@
         <Friend />
         <Score />
 
-        <component :is="character"></component>
+        <component :is="character" class="character-clip"></component>
+        <Zombie class="zombie-clip" />
 
         <text
           x="1000"
@@ -85,9 +86,11 @@
           />
         </g>
       </svg>
+
       <div class="friendtalk">
         <h3>{{ questions[questionIndex].question }}</h3>
       </div>
+
       <div class="zombietalk">
         <p v-for="character in shuffle(characterChoices)" :key="character">
           <button @click="pickQuestion(character)">
@@ -96,11 +99,15 @@
         </p>
       </div>
     </section>
+
+    <GamestateFinish v-else />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import gsap from "gsap";
+
 import GamestateStart from "@/components/GamestateStart.vue";
 import Artist from "@/components/Artist.vue";
 import Baker from "@/components/Baker.vue";
@@ -108,6 +115,7 @@ import Friend from "@/components/Friend.vue";
 import Mechanic from "@/components/Mechanic.vue";
 import Score from "@/components/Score.vue";
 import Zombie from "@/components/Zombie.vue";
+import GamestateFinish from "./components/GamestateFinish.vue";
 
 export default {
   components: {
@@ -118,6 +126,7 @@ export default {
     Mechanic,
     Score,
     Zombie,
+    GamestateFinish,
   },
   data() {
     return {
@@ -131,6 +140,7 @@ export default {
       "characterChoices",
       "character",
       "questionIndex",
+      "score",
     ]),
   },
   methods: {
@@ -147,6 +157,13 @@ export default {
         [array[i], array[j]] = [array[j], array[i]];
       }
       return array;
+    },
+  },
+  watch: {
+    score(newValue, oldValue) {
+      gsap.to(".bottom-clip-path, .top-clip-path", {
+        y: -newValue * 6,
+      });
     },
   },
 };
