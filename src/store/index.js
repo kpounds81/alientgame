@@ -1,10 +1,12 @@
-import { createStore } from 'vuex'
+import { createStore } from "vuex";
 
 export default createStore({
   state: {
-    uiState: 'start',
-    characterChoices: ['baker', 'mechanic', 'artist'],
-    character: '',
+    uiState: "start",
+    characterChoices: ["baker", "mechanic", "artist"],
+    character: "",
+    questionIndex: 0,
+    score: 0,
     questions: [
       {
         question: `What's your dog's name?`,
@@ -44,18 +46,15 @@ export default createStore({
       },
     ],
   },
-  getters: {
-  },
+  getters: {},
   mutations: {
-    pickCharacter(state, character) { 
-      state.character = character
+    pickCharacter(state, character) {
+      state.character = character;
     },
     updateUiState(state, uiState) {
-      state.uiState = uiState
-    }
+      state.uiState = uiState;
+    },
   },
-  actions: {
-  },
-  modules: {
-  }
-})
+  actions: {},
+  modules: {},
+});

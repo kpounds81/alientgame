@@ -85,19 +85,29 @@
           />
         </g>
       </svg>
+      <div class="friendtalk">
+        <h3>{{ questions[questionIndex].question }}</h3>
+      </div>
+      <div class="zombietalk">
+        <p v-for="character in characterChoices" :key="character">
+          <button @click="pickQuestion(character)">
+            {{ questions[questionIndex][character] }}
+          </button>
+        </p>
+      </div>
     </section>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex';
-import GamestateStart from '@/components/GamestateStart.vue';
-import Artist from '@/components/Artist.vue';
-import Baker from '@/components/Baker.vue';
-import Friend from '@/components/Friend.vue';
-import Mechanic from '@/components/Mechanic.vue';
-import Score from '@/components/Score.vue';
-import Zombie from '@/components/Zombie.vue';
+import { mapState } from "vuex";
+import GamestateStart from "@/components/GamestateStart.vue";
+import Artist from "@/components/Artist.vue";
+import Baker from "@/components/Baker.vue";
+import Friend from "@/components/Friend.vue";
+import Mechanic from "@/components/Mechanic.vue";
+import Score from "@/components/Score.vue";
+import Zombie from "@/components/Zombie.vue";
 
 export default {
   components: {
@@ -111,16 +121,25 @@ export default {
   },
   data() {
     return {
-      characterInput: '',
+      characterInput: "",
     };
   },
   computed: {
-    ...mapState(['uiState', 'questions', 'characterChoices', 'character']),
+    ...mapState([
+      "uiState",
+      "questions",
+      "characterChoices",
+      "character",
+      "questionIndex",
+    ]),
   },
   methods: {
     pickCharacter() {
-      this.$store.commit('pickCharacter', this.characterInput);
-      this.$store.commit('updateUiState', 'characterChosen');
+      this.$store.commit("pickCharacter", this.characterInput);
+      this.$store.commit("updateUiState", "characterChosen");
+    },
+    pickQuestion(character) {
+      console.log(character);
     },
   },
 };
@@ -130,7 +149,7 @@ export default {
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Recursive', Helvetica, Arial, sans-serif;
+  font-family: "Recursive", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-size: 19px;
@@ -140,7 +159,7 @@ body {
   height: 100vh;
   overflow: hidden;
   background-size: cover !important;
-  background: url('./assets/background.svg') no-repeat center center scroll,
+  background: url("./assets/background.svg") no-repeat center center scroll,
     #29abe2;
 }
 
@@ -200,7 +219,7 @@ button {
   background: #0c719b;
   color: #ffffff;
   font-size: 1rem;
-  font-family: 'Recursive', Helvetica, Arial, sans-serif;
+  font-family: "Recursive", Helvetica, Arial, sans-serif;
   cursor: pointer;
   text-align: center;
   -webkit-appearance: none;
@@ -208,7 +227,7 @@ button {
 }
 
 text {
-  font-family: 'Recursive', Helvetica, Arial, sans-serif;
+  font-family: "Recursive", Helvetica, Arial, sans-serif;
 }
 
 .zombietalk {
