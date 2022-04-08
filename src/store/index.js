@@ -55,7 +55,7 @@ export default createStore({
       state.uiState = uiState;
     },
     pickQuestion(state, character) {
-      character == state.character ? (state.score += 10) : (state.score -= 10);
+      character == state.character ? (state.score += 14) : (state.score -= 14);
 
       if (state.questionIndex < state.questions.length - 1) {
         state.questionIndex++;
